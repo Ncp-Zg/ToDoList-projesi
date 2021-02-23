@@ -18,11 +18,36 @@ function addTodo(e){
 
     const newTodo = todoInput.value.trim();
 
-    addTodoToUI(newTodo);
+    if (newTodo === ""){
+
+        /*<div class="alert alert-danger" role="alert">
+                        This is a danger alert—check it out!
+                      </div>*/
+        showAlert("danger","Lütfen bir Todo Girin...");
+    }
+    else {
+        addTodoToUI(newTodo);
+        showAlert("success","Todo başarıyla eklendi...")
+    }
 
 
 
     e.preventDefault();
+}
+function showAlert(type,message){
+    const alert = document.createElement("div");
+
+    alert.className =`alert alert-${type}`;
+
+    alert.textContent = message;
+    
+    firstCardBody.appendChild(alert);
+
+    // setTimeout
+
+    setTimeout(function(){
+        alert.remove();
+    },1000);
 }
 function addTodoToUI(newTodo){  //String değerini List item olarak UI ' ya ekleyecek.
 
@@ -54,4 +79,11 @@ listItem.appendChild(link);
 todoList.appendChild(listItem);
 
 todoInput.value ="";
+
+
+
+
+
+
+
 }

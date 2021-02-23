@@ -13,20 +13,41 @@ eventListeners();
 function eventListeners(){ // Tüm event Listenerlar
 
         form.addEventListener("submit",addTodo);
+        document.addEventListener("DOMContentLoaded",loadAllTodosToUI);
+        secondCardBody.addEventListener("click",deleteTodo);
 }
+function deleteTodo(e){
+
+    if (e.target.className === "fa fa-remove"){
+        e.target.parentElement.parentElement.remove();
+        showAlert("success","Todo başarıyla silindi...");
+    }
+}
+
+
+
+function loadAllTodosToUI(){
+let todos = getTodosFromStorage();
+
+todos.forEach(function(todo){
+    addTodoToUI(todo);
+});
+
+
+}
+
 function addTodo(e){
 
     const newTodo = todoInput.value.trim();
 
     if (newTodo === ""){
 
-        /*<div class="alert alert-danger" role="alert">
-                        This is a danger alert—check it out!
-                      </div>*/
+        
         showAlert("danger","Lütfen bir Todo Girin...");
     }
     else {
         addTodoToUI(newTodo);
+        addTodoToStorage(newTodo);
         showAlert("success","Todo başarıyla eklendi...")
     }
 
@@ -34,6 +55,28 @@ function addTodo(e){
 
     e.preventDefault();
 }
+
+function getTodosFromStorage(){//Storage dan Todoları Alma
+
+    let todos;
+
+    if (localStorage.getItem("todos") === null){
+        todos = [];
+    }
+    else {
+        todos = JSON.parse(localStorage.getItem("todos"));
+    }
+    return todos;
+}
+function addTodoToStorage(newTodo){
+    let todos = getTodosFromStorage();
+
+    todos.push(newTodo);
+
+    localStorage.setItem("todos",JSON.stringify(todos));
+}
+
+
 function showAlert(type,message){
     const alert = document.createElement("div");
 

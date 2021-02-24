@@ -16,7 +16,7 @@ function eventListeners(){ // Tüm event Listenerlar
         document.addEventListener("DOMContentLoaded",loadAllTodosToUI);
         secondCardBody.addEventListener("click",deleteTodo);
         filter.addEventListener("keyup",filterTodos);
-        clearButton.addEventListener("click",clearAllTodos)
+        clearButton.addEventListener("click",clearAllTodos);
 }
 
 function clearAllTodos(e){
@@ -87,13 +87,20 @@ todos.forEach(function(todo){
 }
 
 function addTodo(e){
-
+    let todos = getTodosFromStorage();
     const newTodo = todoInput.value.trim();
-
+    console.log(todos.includes(newTodo));
     if (newTodo === ""){
 
         
         showAlert("danger","Lütfen bir Todo Girin...");
+    }
+    // else if(todos.includes(newTodo)){
+    //     showAlert("danger","zaten mevcut.")
+    // }
+    else if (todos.indexOf(newTodo) != -1){
+
+        showAlert("danger","zaten mevcut.");
     }
     else {
         addTodoToUI(newTodo);
@@ -180,3 +187,4 @@ todoInput.value ="";
 
 
 }
+

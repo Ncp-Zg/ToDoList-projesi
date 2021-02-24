@@ -89,7 +89,10 @@ todos.forEach(function(todo){
 function addTodo(e){
     let todos = getTodosFromStorage();
     const newTodo = todoInput.value.trim();
-    console.log(todos.includes(newTodo));
+    let filteredarr = todos.filter(todos => todos.toLowerCase() === newTodo.toLowerCase());
+    console.log(filteredarr);
+   
+    // console.log(todos.includes(newTodo));
     if (newTodo === ""){
 
         
@@ -98,8 +101,11 @@ function addTodo(e){
     // else if(todos.includes(newTodo)){
     //     showAlert("danger","zaten mevcut.")
     // }
-    else if (todos.indexOf(newTodo) != -1){
+    // else if (todos.indexOf(newTodo) != -1){
 
+    //     showAlert("danger","zaten mevcut.");
+    // }
+    else if(filteredarr.length !== 0){
         showAlert("danger","zaten mevcut.");
     }
     else {
